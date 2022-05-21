@@ -1,4 +1,5 @@
 const fs = require('fs/promises');
+const uniqid = require('uniqid');
 
 const filePath = './services/data.json';
 
@@ -16,7 +17,7 @@ async function read() {
 
 async function write(data) {
 	try {
-		await fs.writeFile(filePath, JSON.stringify(data));
+		await fs.writeFile(filePath, JSON.stringify(data, null, 2));
 	} catch (err) {
 		console.error('Database read error.')
 		console.error(err);
@@ -41,10 +42,18 @@ async function getById(id) {
 	}
 }
 
+async function addCat(cat) {
+	const cats = await read();
+	const id = uniqid();
+	cats[id] = cat;
+	await write(cats);
+}
+
 module.exports = () => (req, res, next) => {
 	req.storage = {
 		getAll,
-		getById
+		getById,
+		addCat,
 	}
 	next();
 }
