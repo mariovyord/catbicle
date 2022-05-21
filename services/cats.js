@@ -31,9 +31,20 @@ async function getAll() {
 		.map(([id, v]) => Object.assign({}, { id }, v))
 }
 
+async function getById(id) {
+	const data = await read();
+	const cat = data[id];
+	if (cat) {
+		return Object.assign({}, { id }, cat);
+	} else {
+		return undefined;
+	}
+}
+
 module.exports = () => (req, res, next) => {
 	req.storage = {
 		getAll,
+		getById
 	}
 	next();
 }
