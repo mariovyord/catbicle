@@ -16,7 +16,7 @@ router.use((req, res, next) => {
 	next();
 })
 
-router.use(express.urlencoded({ extended: true }));
+// router.use(express.urlencoded({ extended: true }));
 router.use('/static', express.static('static'));
 router.use(catsService());
 

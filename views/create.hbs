@@ -1,12 +1,12 @@
 <h1>Create</h1>
 <div class="form">
-	<form action="/create" method="POST">
+	<form action="/create" method="POST" enctype="multipart/form-data">
 		<label for="name">Name</label>
 		<input type="text" id="name" name="name">
 		<label for="name">Description</label>
 		<textarea id="name" name="description"></textarea>
-		<label for="image">ImageUrl</label>
-		<input type="text" id="image" name="imageUrl">
+		<label for="catimage">Image</label>
+		<input type="file" id="catimage" name="catimage">
 		<label for="stars">Stars</label>
 		<input type="number" id="stars" name="stars">
 		<input type="submit" value="Publish">
