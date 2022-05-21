@@ -1,12 +1,14 @@
 <h1>Browser</h1>
 <form action="/" method="GET">
-	<input style="display:inline-block; width: 200px" type="text" class="search" name="search" placeholder="Search...">
+	<input style="display:inline-block; width: 200px" type="text" class="search" name="search" placeholder="Search..."
+		value=" {{query.search}}">
 	<input style="display:inline-block; width: 200px; margin: 5px" type="submit" value="search">
 </form>
-<div>
+<div id="cats">
 	{{#each cats}}
 	{{> catPreview}}
 	{{else}}
 	<p>No cats in database. <a href="/create">Upload the first cat!</a> </p>
 	{{/each}}
 </div>
+<script src="/static/scripts/app.js" defer></script>
