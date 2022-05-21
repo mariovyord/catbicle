@@ -4,6 +4,7 @@ const fs = require('fs/promises');
 
 module.exports = {
 	get(req, res) {
+		req.app.locals.title = 'Add a Cat';
 		res.render('create');
 	},
 	post(req, res) {

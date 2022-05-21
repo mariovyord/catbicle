@@ -2,7 +2,4 @@
 
 Tutorial app
 
-- Express.js
-- Express Handlebars
-
-SoftUni Exercise
+SoftUni Exercise for Express.js and Handlebars

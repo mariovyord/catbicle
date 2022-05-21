@@ -25,11 +25,17 @@ async function write(data) {
 	}
 }
 
-async function getAll() {
+async function getAll(query) {
 	const data = await read();
-	return Object
+	let cats = Object
 		.entries(data)
 		.map(([id, v]) => Object.assign({}, { id }, v))
+
+	if (query.search) {
+		cats = cats.filter(cat => cat.name.toLocaleLowerCase().includes(query.search.toLocaleLowerCase()));
+	}
+
+	return cats;
 }
 
 async function getById(id) {
