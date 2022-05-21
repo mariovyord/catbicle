@@ -32,7 +32,7 @@ async function getAll(query) {
 		.map(([id, v]) => Object.assign({}, { id }, v))
 
 	if (query.search) {
-		cats = cats.filter(cat => cat.name.toLocaleLowerCase().includes(query.search.toLocaleLowerCase()));
+		cats = cats.filter(cat => cat.name.toLocaleLowerCase().includes(query.search.toLocaleLowerCase().trim()));
 	}
 
 	return cats;
@@ -48,6 +48,16 @@ async function getById(id) {
 	}
 }
 
+async function deleteById(id) {
+	const data = await read();
+	if (data.hasOwnProperty(id)) {
+		delete data[id];
+		await write(data);
+	} else {
+		throw new Error('No such reference in database');
+	}
+}
+
 async function addCat(cat) {
 	const cats = await read();
 	const id = uniqid();
@@ -60,6 +70,7 @@ module.exports = () => (req, res, next) => {
 		getAll,
 		getById,
 		addCat,
+		deleteById,
 	}
 	next();
 }

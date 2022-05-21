@@ -1,0 +1,16 @@
+<h1>Delete Cat</h1>
+{{#with cat}}
+<div class="form">
+	<form action="/delete/{{id}}" method="POST" enctype="multipart/form-data">
+		<label for="name">Name</label>
+		<input type="text" id="name" name="name" value="{{name}}" disabled>
+		<label for="name">Description</label>
+		<textarea id="name" name="description" disabled>{{description}}</textarea>
+		<label for="catimage">Image</label>
+		<input type="text" id="catimage" name="catimage" value="{{imageUrl}}" disabled>
+		<label for="stars">Stars</label>
+		<input type="number" id="stars" name="stars" value="{{stars}}" disabled>
+		<input type="submit" value="Confirm Delete">
+	</form>
+</div>
+{{/with}}
