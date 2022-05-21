@@ -1,0 +1,16 @@
+{
+	"name": "catbicle",
+	"version": "1.0.0",
+	"description": "all about cats",
+	"main": "index.js",
+	"scripts": {
+		"start": "nodemon index.js"
+	},
+	"keywords": [],
+	"author": "Mario Y",
+	"license": "MIT",
+	"dependencies": {
+		"express": "^4.18.1",
+		"express-handlebars": "^6.0.6"
+	}
+}
