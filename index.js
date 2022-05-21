@@ -1,5 +1,10 @@
 const express = require('express');
 const hbs = require('express-handlebars');
+
+// Middlewares
+const catsService = require('./services/cats')
+
+// Controllers
 const { about } = require('./controllers/about');
 const { create } = require('./controllers/create');
 const { details } = require('./controllers/details');
@@ -18,8 +23,10 @@ app.use((req, res, next) => {
 	console.log('>>>', req.method, req.url);
 	next();
 })
+
 app.use(express.urlencoded({ extended: true }));
 app.use('/static', express.static('static'));
+app.use(catsService());
 
 app.get('/', home);
 app.get('/about', about);

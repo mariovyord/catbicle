@@ -1,0 +1,14 @@
+{
+	"12345678": {
+		"name": "Mincho",
+		"description": "Great cat",
+		"imageUrl": "Domestic-feline-tabby-cat.webp",
+		"stars": 5
+	},
+	"12345679": {
+		"name": "Jonka",
+		"description": "Wild animal",
+		"imageUrl": "MG_8218-A.webp",
+		"stars": 4
+	}
+}
