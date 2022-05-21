@@ -11,6 +11,7 @@ const { details } = require('../controllers/details');
 const { home } = require('../controllers/home');
 const { notFound } = require('../controllers/notFound');
 const del = require('../controllers/del');
+const edit = require('../controllers/edit');
 
 router.use((req, res, next) => {
 	console.log('>>>', req.method, req.url);
@@ -26,7 +27,9 @@ router.get('/about', about);
 router.route('/create')
 	.get(create.get)
 	.post(create.post)
-// router.get('/edit/:id', edit);
+router.route('/edit/:id')
+	.get(edit.get)
+	.post(edit.post);
 router.route('/delete/:id')
 	.get(del.get)
 	.post(del.post);

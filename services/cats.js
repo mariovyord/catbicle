@@ -58,6 +58,18 @@ async function deleteById(id) {
 	}
 }
 
+async function editById(id, cat) {
+	const data = await read();
+	if (data.hasOwnProperty(id)) {
+		data[id].name = cat.name;
+		data[id].description = cat.description;
+		data[id].stars = cat.stars;
+		await write(data);
+	} else {
+		throw new Error('No such reference in database');
+	}
+}
+
 async function addCat(cat) {
 	const cats = await read();
 	const id = uniqid();
@@ -71,6 +83,7 @@ module.exports = () => (req, res, next) => {
 		getById,
 		addCat,
 		deleteById,
+		editById,
 	}
 	next();
 }
