@@ -1,5 +1,9 @@
 # CATBICLE
 
 Tutorial app
+SoftUni Exercise 
 
-SoftUni Exercise for Express.js and Handlebars
+Tech stack:
+- Express.js 
+- Handlebars
+- MongoDB + Mongoose
