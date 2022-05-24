@@ -1,80 +1,52 @@
-const fs = require('fs/promises');
-const uniqid = require('uniqid');
-
-const filePath = './services/data.json';
-
-async function read() {
-	try {
-		const file = await fs.readFile(filePath);
-		// @ts-ignore
-		return JSON.parse(file);
-	} catch (err) {
-		console.error('Database read error.')
-		console.error(err);
-		process.exit(1);
-	}
-}
-
-async function write(data) {
-	try {
-		await fs.writeFile(filePath, JSON.stringify(data, null, 2));
-	} catch (err) {
-		console.error('Database read error.')
-		console.error(err);
-		process.exit(1);
-	}
-}
+const Cat = require('../models/Cat');
 
 async function getAll(query) {
-	const data = await read();
-	let cats = Object
-		.entries(data)
-		.map(([id, v]) => Object.assign({}, { id }, v))
+	const options = {};
 
 	if (query.search) {
-		cats = cats.filter(cat => cat.name.toLocaleLowerCase().includes(query.search.toLocaleLowerCase().trim()));
+		options.name = new RegExp(query.search, 'i');
 	}
 
-	return cats;
+	const cats = await Cat.find(options);
+
+	return cats.map(catViewModel);
 }
 
 async function getById(id) {
-	const data = await read();
-	const cat = data[id];
+	const cat = await Cat.findById(id);
 	if (cat) {
-		return Object.assign({}, { id }, cat);
+		return catViewModel(cat);
 	} else {
 		return undefined;
 	}
 }
 
 async function deleteById(id) {
-	const data = await read();
-	if (data.hasOwnProperty(id)) {
-		delete data[id];
-		await write(data);
-	} else {
-		throw new Error('No such reference in database');
-	}
+	await Cat.findByIdAndDelete(id);
 }
 
 async function editById(id, cat) {
-	const data = await read();
-	if (data.hasOwnProperty(id)) {
-		data[id].name = cat.name;
-		data[id].description = cat.description;
-		data[id].stars = cat.stars;
-		await write(data);
-	} else {
-		throw new Error('No such reference in database');
+	const result = {
+		name: cat.name,
+		description: cat.description,
+		stars: cat.stars,
 	}
+	await Cat.findByIdAndUpdate(id, result);
 }
 
 async function addCat(cat) {
-	const cats = await read();
-	const id = uniqid();
-	cats[id] = cat;
-	await write(cats);
+	const result = new Cat(cat);
+	await result.save();
+}
+
+function catViewModel(cat) {
+	return {
+		id: cat._id,
+		name: cat.name,
+		description: cat.description,
+		imageUrl: cat.imageUrl,
+		stars: cat.stars,
+	};
 }
 
 module.exports = () => (req, res, next) => {

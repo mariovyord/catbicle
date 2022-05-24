@@ -10,6 +10,7 @@ async function init() {
 			useNewUrlParser: true,
 			useUnifiedTopology: true,
 		});
+
 		console.log('Database connected');
 		mongoose.connection.on('error', (err) => {
 			console.error('Database error');

@@ -17,6 +17,7 @@ module.exports = {
 			await req.storage.deleteById(id);
 			res.redirect('/');
 		} catch (err) {
+			console.error('Error deleting item in database')
 			res.redirect('/404');
 		}
 	}

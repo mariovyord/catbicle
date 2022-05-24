@@ -21,7 +21,6 @@ module.exports = {
 				imageUrl: files.catimage.originalFilename,
 				stars: parseInt(fields.stars),
 			}
-			console.log(files);
 			fs.copyFile(oldPath, newPath)
 				.then(() => {
 					console.log('File uploaded successfully');
@@ -33,7 +32,6 @@ module.exports = {
 						})
 						.catch(err => { throw err });
 				}).catch(err => console.error(err));
-			res.redirect('/');
 		})
 
 	}
