@@ -1,6 +1,8 @@
 const mongoose = require('mongoose');
 
+// Mongoose models
 const Cat = require('./Cat');
+const Toy = require('./Toy');
 
 const connectionString = 'mongodb://localhost:27017/catbicle';
 

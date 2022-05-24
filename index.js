@@ -1,7 +1,7 @@
 const express = require('express');
 const hbs = require('express-handlebars');
 const router = require('./routes/router');
-const initDb = require('./models');
+const initDb = require('./models/db');
 
 // start app
 start();
