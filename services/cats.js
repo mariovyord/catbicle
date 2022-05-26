@@ -1,4 +1,6 @@
 const Cat = require('../models/Cat');
+const Toy = require('../models/Toy');
+const { catViewModel, toyViewModel } = require('./util');
 
 async function getAll(query) {
 	const options = {};
@@ -13,7 +15,7 @@ async function getAll(query) {
 }
 
 async function getById(id) {
-	const cat = await Cat.findById(id);
+	const cat = await Cat.findById(id).populate('toys');
 	if (cat) {
 		return catViewModel(cat);
 	} else {
@@ -34,19 +36,15 @@ async function editById(id, cat) {
 	await Cat.findByIdAndUpdate(id, result);
 }
 
+async function addToy(catId, toyId) {
+	const existing = await Cat.findById(catId);
+	existing.toys.push(toyId);
+	await existing.save();
+}
+
 async function addCat(cat) {
 	const result = new Cat(cat);
 	await result.save();
-}
-
-function catViewModel(cat) {
-	return {
-		id: cat._id,
-		name: cat.name,
-		description: cat.description,
-		imageUrl: cat.imageUrl || undefined,
-		stars: cat.stars,
-	};
 }
 
 module.exports = () => (req, res, next) => {
@@ -56,6 +54,7 @@ module.exports = () => (req, res, next) => {
 		addCat,
 		deleteById,
 		editById,
+		addToy,
 	}
 	next();
 }

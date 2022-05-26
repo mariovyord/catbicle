@@ -1,17 +1,10 @@
 const Toy = require('../models/Toy');
+const { toyViewModel } = require('./util');
 
-function mapToViewModel(toy) {
-	return {
-		id: toy._id,
-		name: toy.name,
-		description: toy.description,
-		imageUrl: toy.imageUrl
-	}
-}
 
 async function getAll() {
 	const toys = await Toy.find({});
-	return toys.map(mapToViewModel);
+	return toys.map(toyViewModel);
 }
 
 async function createToy(toy) {
