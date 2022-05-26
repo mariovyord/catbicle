@@ -14,6 +14,7 @@ const { notFound } = require('../controllers/notFound');
 const del = require('../controllers/del');
 const edit = require('../controllers/edit');
 const toy = require('../controllers/toy');
+const addToy = require('../controllers/addToy');
 
 router.use((req, res, next) => {
 	console.log('>>>', req.method, req.url);
@@ -46,6 +47,10 @@ router.get('/details/:id', details);
 router.route('/toy')
 	.get(toy.get)
 	.post(toy.post);
+
+router.route('/add-toy/:id')
+	.get(addToy.get)
+	.post(addToy.post);
 
 router.get('/about', about);
 
