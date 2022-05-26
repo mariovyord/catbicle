@@ -1,12 +1,12 @@
-<h1>Create Accessory</h1>
+<h1>Create Toy</h1>
 <div class="form">
-	<form action="/toy" method="POST">
+	<form action="/toy" method="POST" enctype="multipart/form-data">
 		<label for="name">Name</label>
 		<input type="text" id="name" name="name">
 		<label for="name">Description</label>
 		<textarea id="description" name="description"></textarea>
-		<label for="image">ImageUrl</label>
-		<input type="text" id="image" name="imageUrl">
+		<label for="toyimage">Image</label>
+		<input type="file" id="toyimage" name="toyimage">
 		<input type="submit" value="Create">
 	</form>
 </div>

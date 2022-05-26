@@ -3,6 +3,7 @@ const router = express.Router();
 
 // Middlewares
 const catsService = require('../services/cats')
+const toysService = require('../services/toys')
 
 // Controllers
 const { about } = require('../controllers/about');
@@ -12,6 +13,7 @@ const { home } = require('../controllers/home');
 const { notFound } = require('../controllers/notFound');
 const del = require('../controllers/del');
 const edit = require('../controllers/edit');
+const toy = require('../controllers/toy');
 
 router.use((req, res, next) => {
 	console.log('>>>', req.method, req.url);
@@ -20,20 +22,33 @@ router.use((req, res, next) => {
 
 // router.use(express.urlencoded({ extended: true }));
 router.use('/static', express.static('static'));
+
+// Middlewares
 router.use(catsService());
+router.use(toysService());
 
 router.get('/', home);
-router.get('/about', about);
+
 router.route('/create')
 	.get(create.get)
 	.post(create.post)
+
 router.route('/edit/:id')
 	.get(edit.get)
 	.post(edit.post);
+
 router.route('/delete/:id')
 	.get(del.get)
 	.post(del.post);
+
 router.get('/details/:id', details);
+
+router.route('/toy')
+	.get(toy.get)
+	.post(toy.post);
+
+router.get('/about', about);
+
 router.all('*', notFound);
 
 module.exports = router;
