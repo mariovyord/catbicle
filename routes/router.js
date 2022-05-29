@@ -1,11 +1,12 @@
 const express = require('express');
 const router = express.Router();
+const session = require('express-session');
 
 // Middlewares
-const session = require('express-session');
 const authService = require('../services/auth');
 const catsService = require('../services/cats');
 const toysService = require('../services/toys');
+const { isLoggedIn } = require('../services/util');
 
 // Controllers
 const { about } = require('../controllers/about');
@@ -41,16 +42,16 @@ router.use(toysService());
 router.get('/', home);
 
 router.route('/create')
-	.get(create.get)
-	.post(create.post)
+	.get(isLoggedIn(), create.get)
+	.post(isLoggedIn(), create.post)
 
 router.route('/edit/:id')
-	.get(edit.get)
-	.post(edit.post);
+	.get(isLoggedIn(), edit.get)
+	.post(isLoggedIn(), edit.post);
 
 router.route('/delete/:id')
-	.get(del.get)
-	.post(del.post);
+	.get(isLoggedIn(), del.get)
+	.post(isLoggedIn(), del.post);
 
 router.get('/details/:id', details);
 
@@ -59,8 +60,8 @@ router.route('/toy')
 	.post(toy.post);
 
 router.route('/add-toy/:id')
-	.get(addToy.get)
-	.post(addToy.post);
+	.get(isLoggedIn(), addToy.get)
+	.post(isLoggedIn(), addToy.post);
 
 router.route('/login')
 	.get(auth.loginGet)
