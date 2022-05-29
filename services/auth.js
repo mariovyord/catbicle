@@ -26,6 +26,10 @@ async function login(session, username, password) {
 	}
 }
 
+async function logout(session) {
+	delete session.user;
+}
+
 module.exports = () => (req, res, next) => {
 	if (req.session.user) {
 		req.app.locals.user = req.session.user;
@@ -36,6 +40,7 @@ module.exports = () => (req, res, next) => {
 	req.auth = {
 		signup: (...params) => signup(req.session, ...params),
 		login: (...params) => login(req.session, ...params),
+		logout: () => logout(req.session),
 	};
 	next();
 }

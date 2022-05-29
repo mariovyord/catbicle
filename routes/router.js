@@ -70,6 +70,8 @@ router.route('/signup')
 	.get(auth.signupGet)
 	.post(auth.signupPost);
 
+router.get('/logout', auth.logoutGet);
+
 router.get('/about', about);
 
 router.all('*', notFound);
