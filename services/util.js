@@ -6,6 +6,7 @@ function toyViewModel(toy) {
 		name: toy.name,
 		description: toy.description,
 		imageUrl: toy.imageUrl,
+		owner: toy.owner,
 	}
 }
 
@@ -17,6 +18,7 @@ function catViewModel(cat) {
 		imageUrl: cat.imageUrl || undefined,
 		stars: cat.stars,
 		toys: cat.toys,
+		owner: cat.owner,
 	};
 
 	if (model.toys.length > 0 && cat.name !== undefined) {

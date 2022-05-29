@@ -1,20 +1,20 @@
-{{#with cat}}
-<h1>{{name}}</h1>
-<img class="cube" src="/static/images/{{imageUrl}}">
+<h1>{{cat.name}}</h1>
+<img class="cube" src="/static/images/{{cat.imageUrl}}">
 <div class="details">
-	<p><span>Description:</span>{{description}}</p>
-	<p><span>Stars:</span>{{stars}}</p>
+	<p><span>Description:</span>{{cat.description}}</p>
+	<p><span>Stars:</span>{{cat.stars}}</p>
 	<a class="btn" href="/">Back</a>
-	<a class="btn" href="/add-toy/{{id}}">Add Toy</a>
-	<a class="btn" href="/edit/{{id}}">Edit</a>
-	<a class="btn" href="/delete/{{id}}" style="background-color: red">Delete</a>
+	{{#if isOwner}}
+	<a class="btn" href="/add-toy/{{cat.id}}">Add Toy</a>
+	<a class="btn" href="/edit/{{cat.id}}">Edit</a>
+	<a class="btn" href="/delete/{{cat.id}}" style="background-color: red">Delete</a>
+	{{/if}}
 </div>
 <h2>Accessories</h2>
 <div class="accessories">
-	{{#each toys}}
+	{{#each cat.toys}}
 	{{> toy}}
 	{{else}}
 	<h3 class="italic">This cube has no accessories yet...</h3>
 	{{/each}}
 </div>
-{{/with}}

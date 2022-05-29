@@ -23,23 +23,47 @@ async function getById(id) {
 	}
 }
 
-async function deleteById(id) {
+async function deleteById(id, userId) {
+	const existing = await Cat.findById(id);
+
+	if (existing.owner.toString() !== userId) {
+		throw new Error('User is not owner');
+		return false;
+	};
+
 	await Cat.findByIdAndDelete(id);
+
+	return true;
 }
 
-async function editById(id, cat) {
-	const result = {
-		name: cat.name,
-		description: cat.description,
-		stars: cat.stars,
-	}
-	await Cat.findByIdAndUpdate(id, result);
+async function editById(id, cat, userId) {
+	const existing = await Cat.findById(id);
+	if (existing.owner.toString() !== userId) {
+		throw new Error('User is not owner');
+		return false;
+	};
+
+	existing.name = cat.name;
+	existing.description = cat.description;
+	existing.stars = cat.stars;
+
+	await existing.save();
+
+	return true;
 }
 
-async function addToy(catId, toyId) {
+async function addToy(catId, toyId, userId) {
 	const existing = await Cat.findById(catId);
+
+	if (existing.owner.toString() !== userId) {
+		throw new Error('User is not owner');
+		return false;
+	};
+
 	existing.toys.push(toyId);
 	await existing.save();
+	return true;
+
 }
 
 async function addCat(cat) {

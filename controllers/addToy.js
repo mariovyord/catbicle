@@ -23,7 +23,8 @@ module.exports = {
 			}
 			if (fields.toys) {
 				const toyId = fields.toys;
-				req.storage.addToy(catId, toyId).then(() => {
+
+				req.storage.addToy(catId, toyId, req.session.user._id).then(() => {
 					res.redirect('/');
 				}).catch(err => {
 					console.log('Error adding toy');
