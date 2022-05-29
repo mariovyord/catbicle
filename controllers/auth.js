@@ -35,8 +35,21 @@ module.exports = {
 	loginGet(req, res) {
 		res.render('login', { title: 'Log in' });
 	},
-	loginPost(req, res) {
+	async loginPost(req, res) {
+		const form = new formidable.IncomingForm();
 
+		form.parse(req, async (err, fields) => {
+			try {
+				if (err) {
+					throw new Error('Error reading form')
+				}
+				const result = await req.auth.login(fields.username, fields.password);
+				res.redirect('/');
+			} catch (err) {
+				console.log(err.message);
+				return res.redirect('/login');
+			}
+		})
 	},
 	logoutGet(req, res) {
 

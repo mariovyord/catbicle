@@ -4,8 +4,8 @@ const router = express.Router();
 // Middlewares
 const session = require('express-session');
 const authService = require('../services/auth');
-const catsService = require('../services/cats')
-const toysService = require('../services/toys')
+const catsService = require('../services/cats');
+const toysService = require('../services/toys');
 
 // Controllers
 const { about } = require('../controllers/about');
