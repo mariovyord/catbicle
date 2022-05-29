@@ -20,6 +20,7 @@ module.exports = {
 					description: fields.description,
 					imageUrl: files.catimage.originalFilename,
 					stars: parseInt(fields.stars),
+					owner: req.session.user._id,
 				}
 				fs.copyFile(oldPath, newPath)
 					.then(() => {

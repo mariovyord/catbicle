@@ -9,6 +9,7 @@ const catSchema = new Schema({
 	imageUrl: { type: String, default: 'noImage.jpg' },
 	stars: { type: Number, min: 0, max: 10000, required: true },
 	toys: { type: [Types.ObjectId], default: [], ref: 'Toy' },
+	owner: { type: Types.ObjectId, ref: 'User' },
 });
 
 const Cat = model('Cat', catSchema);

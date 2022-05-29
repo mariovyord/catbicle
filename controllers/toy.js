@@ -18,6 +18,7 @@ module.exports = {
 					name: fields.name,
 					description: fields.description,
 					imageUrl: files.toyimage.originalFilename,
+					owner: req.session.user._id,
 				}
 				fs.copyFile(oldPath, newPath)
 					.then(() => {
