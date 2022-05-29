@@ -2,6 +2,8 @@ const express = require('express');
 const router = express.Router();
 
 // Middlewares
+const session = require('express-session');
+const authService = require('../services/auth');
 const catsService = require('../services/cats')
 const toysService = require('../services/toys')
 
@@ -15,6 +17,7 @@ const del = require('../controllers/del');
 const edit = require('../controllers/edit');
 const toy = require('../controllers/toy');
 const addToy = require('../controllers/addToy');
+const auth = require('../controllers/auth');
 
 router.use((req, res, next) => {
 	console.log('>>>', req.method, req.url);
@@ -25,6 +28,13 @@ router.use((req, res, next) => {
 router.use('/static', express.static('static'));
 
 // Middlewares
+router.use(session({
+	secret: 'my secret sentence',
+	resave: false,
+	saveUninitialized: true,
+	cookie: { secure: 'auto' },
+}));
+router.use(authService());
 router.use(catsService());
 router.use(toysService());
 
@@ -51,6 +61,14 @@ router.route('/toy')
 router.route('/add-toy/:id')
 	.get(addToy.get)
 	.post(addToy.post);
+
+router.route('/login')
+	.get(auth.loginGet)
+	.post(auth.loginPost);
+
+router.route('/signup')
+	.get(auth.signupGet)
+	.post(auth.signupPost);
 
 router.get('/about', about);
 

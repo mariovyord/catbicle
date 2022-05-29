@@ -1,3 +1,5 @@
+const bcrypt = require('bcrypt');
+
 function toyViewModel(toy) {
 	return {
 		id: toy._id,
@@ -24,7 +26,17 @@ function catViewModel(cat) {
 	return model;
 }
 
+async function hashPassword(password) {
+	return bcrypt.hash(password, 8);
+}
+
+async function comparePassword(password, hashedPassword) {
+	return bcrypt.compare(password, hashedPassword);
+}
+
 module.exports = {
 	toyViewModel,
-	catViewModel
+	catViewModel,
+	hashPassword,
+	comparePassword,
 }
