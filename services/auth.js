@@ -1,4 +1,3 @@
-const req = require('express/lib/request');
 const User = require('../models/User');
 
 async function signup(session, username, password) {
